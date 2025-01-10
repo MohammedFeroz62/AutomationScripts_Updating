@@ -1,1 +1,239 @@
+import { expect, Page } from '@playwright/test';
+import { ProductSearch } from '../TestData/ProductsSearchJData';
 
+
+
+    export class ProductsSearchPage {
+        private page: Page;
+
+        constructor(page: Page) {
+            this.page = page;
+        }
+
+        async performProductSearch() {
+    
+     //Select the Manufacturing Center 
+     await this.page.locator("[class='dx-dropdowneditor-icon']").click();
+     await this.page.locator("[class='dx-item dx-list-item dx-list-item-selected']").click();
+
+     //Product Search this.page
+     await this.page.getByText('Products').click();
+     await this.page.getByText('Products List').click();
+
+
+     //Products this.page -- Product Code filter 
+     //Search filter with "Contains"
+     await this.page.waitForTimeout(1000);
+     await this.page.getByRole('menubar').first().click();
+     console.log("Product Search using Contains filter");
+     await this.page.getByText(ProductSearch.PCode1).click();
+
+     console.log("Products Search using Conatins :" + ProductSearch.productCodeFilter1_Contains)
+     await this.page.getByRole('textbox', { name: 'Filter cell' }).fill(ProductSearch.productCodeFilter1_Contains);
+     await this.page.getByRole('gridcell', { name: ProductSearch.productCodeFilter1_Contains }).click();
+     const myPCodeConatins = this.page.getByRole('gridcell', { name: ProductSearch.productCodeFilter1_Contains}).innerText();
+
+     console.log(await(myPCodeConatins));
+     expect((await myPCodeConatins).includes(ProductSearch.productCodeFilter1_Contains)).toBe(true);
+     console.log("Product Search using Contains filter displaying results");
+     await this.page.getByLabel(ProductSearch.ProductPage).click();
+     await this.page.getByRole('link', { name: ProductSearch.ProductHomePage }).click();
+     await this.page.getByLabel('Reset State').click();
+
+    //  //Search filter with "Does not contain"
+    //  await this.page.waitForTimeout(1000);
+    //  await this.page.getByRole('menubar').first().click();
+    //  await this.page.getByText('Does not contain').click();
+    //  await this.page.getByRole('textbox', { name: 'Filter cell' }).fill(ProductSearch.productCodeFilter2_NotContains);
+    //  await this.page.getByRole('gridcell', { name: '10105' }).click();
+    //  await this.page.getByLabel(ProductSearch.).click();
+    //  await this.page.getByRole('link', { name: 'Product List' }).click();
+    //  await this.page.getByLabel('Reset State').click();
+
+     //Search filter with "Starts with"
+     await this.page.waitForTimeout(1000);
+     await this.page.getByRole('menubar').first().click();
+     console.log("Product Search using Starts with filter");
+     await this.page.getByText(ProductSearch.PCode2).click();
+
+     console.log("Products Search using Starts with :" + ProductSearch.productCodeFilter3_StartsWith)
+     await this.page.getByRole('textbox', { name: 'Filter cell' }).fill(ProductSearch.productCodeFilter3_StartsWith);
+     await this.page.getByRole('gridcell', { name: ProductSearch.productCodeFilter3_StartsWith }).click();
+     const myPCodeStartswith = this.page.getByRole('gridcell', { name: ProductSearch.productCodeFilter3_StartsWith }).innerText();
+
+     console.log(await(myPCodeStartswith));
+     expect((await myPCodeStartswith).includes(ProductSearch.productCodeFilter3_StartsWith)).toBe(true);
+     console.log("Product Search using Starts with filter displaying results");
+     await this.page.getByLabel(ProductSearch.ProductPage).click();
+     await this.page.getByRole('link', { name: ProductSearch.ProductHomePage }).click();
+     await this.page.getByLabel('Reset State').click();
+
+     //Search filter with "Ends with"
+     await this.page.waitForTimeout(1000);
+     await this.page.getByRole('menubar').first().click();
+     console.log("Product Search using Ends with filter");
+     await this.page.getByText(ProductSearch.PCode3).click();
+
+     console.log("Products Search using Ends with :" + ProductSearch.productCodeFilter4_EndsWith)
+     await this.page.getByRole('textbox', { name: 'Filter cell' }).fill(ProductSearch.productCodeFilter4_EndsWith);
+     await this.page.getByRole('gridcell', { name: ProductSearch.productCodeFilter4_EndsWith }).click();
+     const myPCodeEndswith = this.page.getByRole('gridcell', { name: ProductSearch.productCodeFilter4_EndsWith }).innerText();
+
+     console.log(await(myPCodeEndswith));
+     expect((await myPCodeEndswith).includes(ProductSearch.productCodeFilter4_EndsWith)).toBe(true);
+     console.log("Product Search using Ends with filter displaying results");
+     await this.page.getByLabel(ProductSearch.ProductPage).click();
+     await this.page.getByRole('link', { name: ProductSearch.ProductHomePage }).click();
+     await this.page.getByLabel('Reset State').click();
+
+     //Search filter with "Equals"
+     await this.page.waitForTimeout(1000);
+     await this.page.getByRole('menubar').first().click();
+     console.log("Product Search using Equals filter");
+     await this.page.getByText(ProductSearch.PCode4).click();
+
+     console.log("Products Search using Equals :" + ProductSearch.productCodeFilter5_Equals)
+     await this.page.getByRole('textbox', { name: 'Filter cell' }).fill(ProductSearch.productCodeFilter5_Equals);
+     await this.page.getByRole('gridcell', { name: ProductSearch.productCodeFilter5_Equals }).click();
+     const myPCodeEquals = this.page.getByRole('gridcell', { name: ProductSearch.productCodeFilter5_Equals }).innerText();
+
+     console.log(await(myPCodeEquals));
+     expect((await myPCodeEquals).includes(ProductSearch.productCodeFilter5_Equals)).toBe(true);
+     console.log("Product Search using Equals filter displaying results");
+     await this.page.getByLabel(ProductSearch.ProductPage).click();
+     await this.page.getByRole('link', { name: ProductSearch.ProductHomePage }).click();
+     await this.page.getByLabel('Reset State').click();
+
+    //  //Search filter with "Does not equal"
+    //  await this.page.waitForTimeout(1000);
+    //  await this.page.getByRole('menubar').first().click();
+    //  await this.page.getByText('Does not equal').click();
+    //  await this.page.getByRole('textbox', { name: 'Filter cell' }).fill(ProductSearch.productCodeFilter6_NotEquals);
+    //  await this.page.getByRole('gridcell', { name: '10004', exact: true }).click();
+    //  await this.page.getByLabel(ProductSearch.).click();
+    //  await this.page.getByRole('link', { name: 'Product List' }).click();
+    //  await this.page.getByLabel('Reset State').click();
+
+
+     //Products this.page Local Cost filter 
+     //Search filter with "Equals"
+     await this.page.waitForTimeout(1000);
+     await this.page.getByRole('menubar').nth(1).click();
+     console.log("Local Cost Search using Equals filter");
+     await this.page.getByRole('menu').getByText(ProductSearch.LCost1).click();
+
+     console.log("Local Cost Search using Equals :" + ProductSearch.localCostFT1_Equals)
+     await this.page.waitForTimeout(1000);
+     await this.page.getByRole('spinbutton', { name: 'Filter cell' }).first().fill(ProductSearch.localCostFT1_Equals);
+     await this.page.waitForTimeout(1000);
+     await this.page.getByRole('row', { name: ProductSearch.localCostFT1_Equals }).getByRole('gridcell').nth(1).click();
+     const myLCodeEquals = this.page.getByRole('row', { name: ProductSearch.localCostFT1_Equals }).getByRole('gridcell').nth(1).innerText();
+     await this.page.waitForTimeout(1000);
+
+     console.log(await(myLCodeEquals));
+     expect((await myLCodeEquals).includes(ProductSearch.localCostFT1_Equals)).toBe(true);
+     console.log("Local Cost Search using Equals filter displaying results");
+     await this.page.getByLabel(ProductSearch.ProductPage).click();
+     await this.page.getByRole('link', { name: ProductSearch.ProductHomePage }).click();
+     await this.page.getByLabel('Reset State').click();
+
+    //  //Search filter with "Does not equal"
+    //  await this.page.waitForTimeout(1000);
+    //  await this.page.getByRole('menubar').nth(1).click();
+    //  await this.page.waitForTimeout(1000);
+    //  await this.page.getByRole('menu').getByText('Does not equal').click();
+    //  await this.page.waitForTimeout(1000);
+    //  await this.page.getByRole('spinbutton', { name: 'Filter cell' }).first().fill(ProductSearch.localCostFT2_DoesNotEqual);
+    //  await this.page.waitForTimeout(1000);
+    //  await this.page.getByRole('gridcell', { name: '$1.56' }).click();
+    //  await this.page.getByLabel(ProductSearch.).click();
+    //  await this.page.getByRole('link', { name: 'Product List' }).click();
+    //  await this.page.getByLabel('Reset State').click();
+
+    //  //Search filter with "Less than"
+    //  await this.page.waitForTimeout(1000);
+    //  await this.page.getByRole('menubar').nth(1).click();
+    //  await this.page.getByText('Less than', { exact: true }).click();
+    //  await this.page.waitForTimeout(1000);
+    //  await this.page.getByRole('spinbutton', { name: 'Filter cell' }).first().fill(ProductSearch.localCostFT3_LessThan);
+    //  await this.page.waitForTimeout(1000);
+    //  await this.page.getByRole('gridcell', { name: '$1.56' }).click();
+    //  await this.page.getByLabel(ProductSearch.).click();
+    //  await this.page.getByRole('link', { name: 'Product List' }).click();
+    //  await this.page.getByLabel('Reset State').click();
+
+     //Search filter with "Greater than"
+     await this.page.waitForTimeout(1000);
+     await this.page.getByRole('menubar').nth(1).click();
+     console.log("Local Cost Search using Greater than filter");   
+     await this.page.getByRole('menu').getByText(ProductSearch.LCost2, { exact: true }).click();
+
+     console.log("Local Cost Search using Greater than :" + ProductSearch.localCostFT2_GreaterThan)
+     await this.page.getByRole('spinbutton', { name: 'Filter cell' }).first().fill(ProductSearch.localCostFT2_GreaterThan);
+     await this.page.waitForTimeout(1000);
+     await this.page.getByRole('gridcell', { name: ProductSearch.FLGT }).click();
+     const myLCostGreaterthan = this.page.getByRole('gridcell', { name: ProductSearch.FLGT }).innerText();
+
+
+     console.log(await(myLCostGreaterthan));
+     expect((await myLCostGreaterthan).includes(ProductSearch.FLGT)).toBe(true);
+     console.log("Local Cost Search using Equals filter displaying results");
+     await this.page.getByLabel(ProductSearch.ProductPage).click();
+     await this.page.getByRole('link', { name: ProductSearch.ProductHomePage }).click();
+     await this.page.getByLabel('Reset State').click();
+
+    //  //Search filter with "Less than or equal to"
+    //  await this.page.waitForTimeout(1000);
+    //  await this.page.getByRole('menubar').nth(1).click();
+    //  await this.page.getByText('Less than or equal to').click();
+    //  await this.page.getByRole('spinbutton', { name: 'Filter cell' }).first().fill(ProductSearch.localCostFT5_LessThankOrEqualTo);
+    //  await this.page.getByRole('gridcell', { name: '$16.26' }).click();
+    //  await this.page.getByLabel(ProductSearch.).click();
+    //  await this.page.getByRole('link', { name: 'Product List' }).click();
+    //  await this.page.getByLabel('Reset State').click();
+
+     //Search filter with "Greater than or equal to"
+     await this.page.waitForTimeout(1000);
+     await this.page.getByRole('menubar').nth(1).click();
+     console.log("Local Cost Search using Greater than or equal to filter"); 
+     await this.page.getByRole('menu').getByText(ProductSearch.LCost3).click();
+
+     await this.page.waitForTimeout(1000);
+     console.log("Local Cost Search using Greater than or equal to :" + ProductSearch.localCostFT3_GreaterThanOrEqualTo)
+     await this.page.getByRole('spinbutton', { name: 'Filter cell' }).first().fill(ProductSearch.localCostFT3_GreaterThanOrEqualTo);
+     await this.page.getByRole('gridcell', { name: ProductSearch.FLGT }).click();
+     const myLCostGTorEqualto = this.page.getByRole('gridcell', { name: ProductSearch.FLGT }).innerText();
+
+
+     console.log(await(myLCostGTorEqualto));
+     expect((await myLCostGTorEqualto).includes(ProductSearch.FLGT)).toBe(true);
+     console.log("Local Cost Search using Equals filter displaying results");
+     await this.page.getByLabel(ProductSearch.ProductPage).click();
+     await this.page.getByRole('link', { name: ProductSearch.ProductHomePage }).click();
+     await this.page.getByLabel('Reset State').click();
+     await this.page.waitForTimeout(1000);
+
+     //Search filter with "Between"
+     await this.page.waitForTimeout(1000);
+     await this.page.getByRole('menubar').nth(1).click();
+     console.log("Local Cost Search using Between filter"); 
+     await this.page.getByRole('menu').getByText(ProductSearch.LCost4).click();
+
+     await this.page.waitForTimeout(1000);
+     await this.page.getByPlaceholder('Start').fill(ProductSearch.localCostFT4_BetweenStart);
+     await this.page.getByPlaceholder('End').click();
+     await this.page.getByPlaceholder('End').fill(ProductSearch.localCostFT5_BetweenEnd);
+     await this.page.getByRole('gridcell', { name: ProductSearch.FLGT1 }).click();
+     const myLCostBetween = this.page.getByRole('gridcell', { name: ProductSearch.FLGT1 }).innerText();
+
+
+     console.log(await(myLCostBetween));
+     expect((await myLCostBetween).includes(ProductSearch.FLGT1)).toBe(true);
+     console.log("Local Cost Search using Equals filter displaying results");
+     await this.page.getByLabel(ProductSearch.ProductPage).click();
+     await this.page.getByRole('link', { name: ProductSearch.ProductHomePage }).click();
+     await this.page.getByLabel('Reset State').click();
+
+        }
+
+    };
